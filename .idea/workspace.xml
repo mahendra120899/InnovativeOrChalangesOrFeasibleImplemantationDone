@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="966b9da4-09c8-4767-a0b6-352f237637d6" name="Default" comment="" />
+    <ignored path="MyTest.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="MyTest" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jquery-form-validation-master/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="1513" max-vertical-offset="1921">
+              <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8095238" vertical-offset="1003" max-vertical-offset="2669">
+              <caret line="85" column="1" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
+              <folding>
+                <element signature="e#7#22#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Genral/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="13838">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding>
+                <marker date="1615876982947" expanded="true" signature="923:945" placeholder="SELECT * FRO..settings..." />
+                <marker date="1615876982947" expanded="true" signature="1186:1251" placeholder="UPDATE setti..." />
+                <marker date="1615876982947" expanded="true" signature="1452:1665" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="1973:2028" placeholder="SELECT * FRO..languages..." />
+                <marker date="1615876982947" expanded="true" signature="4361:4399" placeholder="SELECT * FRO..service_api..." />
+                <marker date="1615876982947" expanded="true" signature="5467:5554" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="5788:6327" placeholder="INSERT INTO ..." />
+                <marker date="1615876982947" expanded="true" signature="7837:7892" placeholder="SELECT * FRO..languages..." />
+                <marker date="1615876982947" expanded="true" signature="8410:8517" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="10447:10485" placeholder="SELECT * FRO..service_api..." />
+                <marker date="1615876982947" expanded="true" signature="11601:11688" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="12090:12628" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="13471:13540" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="13775:13834" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="14693:14748" placeholder="SELECT * FRO..languages..." />
+                <marker date="1615876982947" expanded="true" signature="15129:15227" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="16279:16339" placeholder="SELECT * FRO..categories..." />
+                <marker date="1615876982947" expanded="true" signature="16491:16604" placeholder="INSERT INTO ..." />
+                <marker date="1615876982947" expanded="true" signature="17956:18065" placeholder="UPDATE categ..." />
+                <marker date="1615876982947" expanded="true" signature="18838:18893" placeholder="SELECT * FRO..languages..." />
+                <marker date="1615876982947" expanded="true" signature="21737:21775" placeholder="SELECT * FRO..service_api..." />
+                <marker date="1615876982947" expanded="true" signature="22888:22975" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="23209:23646" placeholder="INSERT INTO ..." />
+                <marker date="1615876982947" expanded="true" signature="24875:24930" placeholder="SELECT * FRO..languages..." />
+                <marker date="1615876982947" expanded="true" signature="25293:25400" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="28023:28061" placeholder="SELECT * FRO..service_api..." />
+                <marker date="1615876982947" expanded="true" signature="29268:29355" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="29651:30061" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="30718:30787" placeholder="SELECT * FRO..services..." />
+                <marker date="1615876982947" expanded="true" signature="31022:31081" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="31928:31987" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="32634:32693" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="33449:33496" placeholder="DELETE FROM ..." />
+                <marker date="1615876982947" expanded="true" signature="33972:34035" placeholder="UPDATE categ..." />
+                <marker date="1615876982947" expanded="true" signature="34524:34587" placeholder="UPDATE categ..." />
+                <marker date="1615876982947" expanded="true" signature="35200:35259" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="35464:35523" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="35726:35789" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="35996:36059" placeholder="UPDATE servi..." />
+                <marker date="1615876982947" expanded="true" signature="36267:36314" placeholder="DELETE FROM ..." />
+                <marker date="1615876982947" expanded="true" signature="36511:36552" placeholder="DELETE FROM ..." />
+                <marker date="1615876982947" expanded="true" signature="36935:36970" placeholder="SELECT * FRO..settings..." />
+                <marker date="1615876982947" expanded="true" signature="37191:37229" placeholder="SELECT * FRO..service_api..." />
+                <marker date="1615876982947" expanded="true" signature="38705:38939" placeholder="INSERT INTO ..." />
+                <marker date="1615876982947" expanded="true" signature="39370:39624" placeholder="INSERT INTO ..." />
+                <marker date="1615876982947" expanded="true" signature="40392:40626" placeholder="INSERT INTO ..." />
+                <marker date="1615876982947" expanded="true" signature="41067:41321" placeholder="INSERT INTO ..." />
+                <marker date="1615876982947" expanded="true" signature="42085:42126" placeholder="DELETE FROM ..." />
+                <marker date="1615876982947" expanded="true" signature="42321:42365" placeholder="DELETE FROM ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="curl.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/curl.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="357">
+              <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="true" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/jquery-form-validation-master/index.php" />
+        <option value="$PROJECT_DIR$/getInstagramProfileDhaboardImages/curl.php" />
+        <option value="$PROJECT_DIR$/Genral/index.php" />
+        <option value="$PROJECT_DIR$/getInstagramProfileDhaboardImages/index.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tableExport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tableExport" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="New export code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.lastSelected" value="vcs.Subversion" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GithubMahendra/BuildBuddyWeb" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\MyTest" />
+      <recent name="C:\xampp\htdocs\MyTest\formValidationINJquery" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <pass-parent-env-vars>false</pass-parent-env-vars>
+      <envs />
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\user\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="966b9da4-09c8-4767-a0b6-352f237637d6" name="Default" comment="" />
+      <created>1610015882467</created>
+      <option name="number" value="Default" />
+      <updated>1610015882467</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2602118" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/jquery-form-validation-master/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1513" max-vertical-offset="1921">
+          <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2669">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#7#22#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Genral/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="13838">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <marker date="1615876982947" expanded="true" signature="923:945" placeholder="SELECT * FRO..settings..." />
+            <marker date="1615876982947" expanded="true" signature="1186:1251" placeholder="UPDATE setti..." />
+            <marker date="1615876982947" expanded="true" signature="1452:1665" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="1973:2028" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="4361:4399" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="5467:5554" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="5788:6327" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="7837:7892" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="8410:8517" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="10447:10485" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="11601:11688" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="12090:12628" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="13471:13540" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="13775:13834" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="14693:14748" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="15129:15227" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="16279:16339" placeholder="SELECT * FRO..categories..." />
+            <marker date="1615876982947" expanded="true" signature="16491:16604" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="17956:18065" placeholder="UPDATE categ..." />
+            <marker date="1615876982947" expanded="true" signature="18838:18893" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="21737:21775" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="22888:22975" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="23209:23646" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="24875:24930" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="25293:25400" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="28023:28061" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="29268:29355" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="29651:30061" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="30718:30787" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="31022:31081" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="31928:31987" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="32634:32693" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="33449:33496" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="33972:34035" placeholder="UPDATE categ..." />
+            <marker date="1615876982947" expanded="true" signature="34524:34587" placeholder="UPDATE categ..." />
+            <marker date="1615876982947" expanded="true" signature="35200:35259" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="35464:35523" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="35726:35789" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="35996:36059" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="36267:36314" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="36511:36552" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="36935:36970" placeholder="SELECT * FRO..settings..." />
+            <marker date="1615876982947" expanded="true" signature="37191:37229" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="38705:38939" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="39370:39624" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="40392:40626" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="41067:41321" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="42085:42126" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="42321:42365" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/curl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="357">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jquery-form-validation-master/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1513" max-vertical-offset="1921">
+          <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2686">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#7#22#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/curl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="357">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jquery-form-validation-master/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1921">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jquery-form-validation-master/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1768">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jquery-form-validation-master/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1513" max-vertical-offset="1921">
+          <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/curl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="357">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Genral/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="13838">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <marker date="1615876982947" expanded="true" signature="923:945" placeholder="SELECT * FRO..settings..." />
+            <marker date="1615876982947" expanded="true" signature="1186:1251" placeholder="UPDATE setti..." />
+            <marker date="1615876982947" expanded="true" signature="1452:1665" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="1973:2028" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="4361:4399" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="5467:5554" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="5788:6327" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="7837:7892" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="8410:8517" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="10447:10485" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="11601:11688" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="12090:12628" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="13471:13540" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="13775:13834" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="14693:14748" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="15129:15227" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="16279:16339" placeholder="SELECT * FRO..categories..." />
+            <marker date="1615876982947" expanded="true" signature="16491:16604" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="17956:18065" placeholder="UPDATE categ..." />
+            <marker date="1615876982947" expanded="true" signature="18838:18893" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="21737:21775" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="22888:22975" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="23209:23646" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="24875:24930" placeholder="SELECT * FRO..languages..." />
+            <marker date="1615876982947" expanded="true" signature="25293:25400" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="28023:28061" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="29268:29355" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="29651:30061" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="30718:30787" placeholder="SELECT * FRO..services..." />
+            <marker date="1615876982947" expanded="true" signature="31022:31081" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="31928:31987" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="32634:32693" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="33449:33496" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="33972:34035" placeholder="UPDATE categ..." />
+            <marker date="1615876982947" expanded="true" signature="34524:34587" placeholder="UPDATE categ..." />
+            <marker date="1615876982947" expanded="true" signature="35200:35259" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="35464:35523" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="35726:35789" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="35996:36059" placeholder="UPDATE servi..." />
+            <marker date="1615876982947" expanded="true" signature="36267:36314" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="36511:36552" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="36935:36970" placeholder="SELECT * FRO..settings..." />
+            <marker date="1615876982947" expanded="true" signature="37191:37229" placeholder="SELECT * FRO..service_api..." />
+            <marker date="1615876982947" expanded="true" signature="38705:38939" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="39370:39624" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="40392:40626" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="41067:41321" placeholder="INSERT INTO ..." />
+            <marker date="1615876982947" expanded="true" signature="42085:42126" placeholder="DELETE FROM ..." />
+            <marker date="1615876982947" expanded="true" signature="42321:42365" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tableExport/New export code/web.config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/getInstagramProfileDhaboardImages/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8095238" vertical-offset="1003" max-vertical-offset="2669">
+          <caret line="85" column="1" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
+          <folding>
+            <element signature="e#7#22#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

@@ -1,237 +1,808 @@
 <?php
+$a = json_decode('{"status":"Completed","expiry":null,"posts":"10","orders":["147986285","148137524","148271437","148282367","148859119","148939346","148946909","148999469","149516088","148279667"]}');
+print_r(count($a->orders));
+die;
+// echo 12123;die;
 
-//$name = $_GET['name'];
-//$email = $_GET['email'];
-//$str_address = $_GET['address'];
-//$_GET['amount'] =10;
-if(isset($_GET['name']) && isset($_GET['email']) && isset($_GET['address']) && trim($_GET['name']) !="" && trim($_GET['email']) !="" && trim($_GET['address']) !=""){
-    ?>
+if (defined("MC_DEBUG")) mc_log(">admin/controller/services.php");
 
-    <!DOCTYPE html>
-    <html lang="en"><head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+if( $user["access"]["services"] != 1  ):
+    header("Location:".site_url("admin"));
+    exit();
+endif;
 
-        <title>2checkout</title>
+if( $_SESSION["client"]["data"] ):
+    $data = $_SESSION["client"]["data"];
+    foreach ($data as $key => $value) {
+        $$key = $value;
+    }
+    unset($_SESSION["client"]);
+endif;
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+if( !route(2) ):
+    $page   = 1;
+elseif( is_numeric(route(2)) ):
+    $page   = route(2);
+elseif( !is_numeric(route(2)) ):
+    $action = route(2);
+endif;
 
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+if (defined("MC_DEBUG")) mc_log("1.admin/controller/services.php action = $action page = $page");
 
-        <style>
-            body{
-                font-family: "Roboto", Helvetica, Arial, sans-serif;
-            }
-            .success_alert {
-                width: 500px;
-                height: auto;
-                background: #f0f0f0;
-                box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.06);
-                padding: 30px;
-                border-radius: 10px;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                margin: auto;
-            }
-            .success_alert h1 {
-                text-align: center;
-                font-size: 35px;
-                color: #8BC34A;
-                margin: 5px 0px;
-            }
-            .success_alert h2 {
-                text-align: center;
-                font-size: 24px;
-                margin: 0;
-            }
-            .success_alert h3 {
-                text-align: center;
-                font-size: 26px;
-                margin: 0;
-                color: #009688;
-                margin-top: 14px;
-            }
-            .success_alert p {
-                text-align: center;
-                font-size: 17px;
-                margin: 0;
-            }
-            .success_gif{
-                width: 40%;
-                margin: 0 auto;
-                display: table;
-            }
+if( empty($action) ):
 
-            .success_body {
-                font-family: "Roboto", Helvetica, Arial, sans-serif;
-                background-size: cover;
-                background: url(./images/payment.jpg) no-repeat center;
-                background-size: cover;
-                height: 100vh;
-            }
+    $query = $conn->query("SELECT * FROM settings", PDO::FETCH_ASSOC);
+    if ( $query->rowCount() ):
+        foreach( $query as $row ):
+            $siraal = $row['servis_siralama'];
+        endforeach;
+    endif;
 
-            .continue_btn{
-                margin: 15px auto 0;
-                display: table;
-                background: #03A9F4;
-                color: #fff;
-                text-decoration: none;
-                padding: 7px 22px;
-                border-radius: 4px;
-            }
-        </style>
+    if($_GET["siralama"]!=""):
+
+        $updatesiralama = $conn->prepare("UPDATE settings SET servis_siralama=:servis_siralama WHERE id=:id ");
+        $updatesiralama->execute(array("servis_siralama"=>$_GET["siralama"],"id"=>1));
+
+        header("Location:".site_url("admin/services"));
+
+    endif;
 
 
-    </head>
+    $services       = $conn->prepare("SELECT * FROM services RIGHT JOIN categories ON categories.category_id = services.category_id LEFT JOIN service_api ON service_api.id = services.service_api ORDER BY categories.category_line,services.service_line ".$siraal);
+    $services       -> execute(array());
+    $services       = $services->fetchAll(PDO::FETCH_ASSOC);
+    $serviceList    = array_group_by($services, 'category_name');
+    require admin_view('services');
+elseif( $action == "new-service" ):
+    if( $_POST ):
+        $language   = $conn->prepare("SELECT * FROM languages WHERE default_language=:default");
+        $language->execute(array("default"=>1));
+        $language   = $language->fetch(PDO::FETCH_ASSOC);
+        foreach ($_POST as $key => $value) {
+            $$key = $value;
+        }
+        $cat = intval(@$_POST["category"]);
 
-    <body class="success_body">
+        if (!$cat) $cat = $category;
+        // $name      = mb_convert_encoding($_POST["name"][$language["language_code"]],"UTF-8","UTF-8");
+        $multiName =  $name = $_POST["name"];
+//        $multiName = json_encode($_POST["name"]);
+        if( $package == 2 ): $max = $min; endif;
+        if( empty($name) ):
+            $error    = 1;
+            $errorText= "Ürün adı boş olamaz";
+            $icon     = "error";
+        elseif( empty($package) ):
+            $error    = 1;
+            $errorText= "Ürün paketi boş olamaz";
+            $icon     = "error";
+        elseif( empty($category) ):
+            $error    = 1;
+            $errorText= "Ürün kategori boş olamaz";
+            $icon     = "error";
+        elseif( !is_numeric($min) ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( $package != 2 && !is_numeric($max) ):
+            $error    = 1;
+            $errorText= "Maksimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( $min > $max ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı maksimum sipariş miktarından fazla olamaz";
+            $icon     = "error";
+        elseif( $mode != 1 && empty($provider) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı boş olamaz";
+            $icon     = "error";
+        elseif( $mode != 1 && empty($service) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı servis bilgisi boş olamaz";
+            $icon     = "error";
+        elseif( empty($secret) ):
+            $error    = 1;
+            $errorText= "Servis gizliliği boş olamaz";
+            $icon     = "error";
+        elseif( empty($want_username) ):
+            $error    = 1;
+            $errorText= "Sipariş bağlantısı boş olamaz";
+            $icon     = "error";
+        elseif( !is_numeric($price) ):
+            $error    = 1;
+            $errorText= "Ürün fiyatı rakamlardan oluşmalı";
+            $icon     = "error";
+        else:
+            $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
+            if( $mode == 1 ): $provider = 0; $service = 0; endif;
+            if( $mode == 2 && $api["api_type"] == 1 ):
+                $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
+                foreach ($services as $apiService):
+                    if( $service == $apiService->service ):
+                        $detail["description"]=$apiService->description;
+                        $detail["min"]=$apiService->min;
+                        $detail["max"]=$apiService->max;
+                        $detail["rate"]=$apiService->rate;
+                        $detail["currency"]=$balance->currency;
+                        $detail=json_encode($detail);
+                    endif;
+                endforeach;
+            else:
+                $detail="";
+            endif;
+            $row = $conn->query("SELECT * FROM services WHERE category_id='$category' ORDER BY service_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC);
+            $conn->beginTransaction();
 
-    <div class="success_alert">
-        <h1>2checkout Payment</h1>
+            $description  = $_POST["description"];
+            $multiDesc    = json_encode(array($language["language_code"] => $description));
 
-        <div class="row">
-            <div class="col-md-12">
-                <!-- credit card form -->
-                <form id="paymentFrm" method="post" action="paymentSubmit.php">
-                    <div class="form-group">
-                        <label>NAME</label>
-                        <input type="text" class="form-control" name="name" id="name" value="<?php echo $_GET['name']; ?>" placeholder="Enter name" required autofocus>
-                        <input type="hidden" class="form-control" name="username" id="username" value="<?php echo $_GET['name']; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label>EMAIL</label>
-                        <input type="text" class="form-control" name="email" id="email" value="<?php echo $_GET['email']; ?>" placeholder="Enter email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <!--                    <label>ADDRESS</label>-->
-                        <input type="hidden" class="form-control" name="address" id="address" value="<?php echo $_GET['address']; ?>" placeholder="Enter email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>AMOUNT</label>
-                        <input type="text" class="form-control" name="amount" id="amount" placeholder="Enter amount" autocomplete="off" required>
-                    </div>
-                    <div class="form-group">
-                        <label>CARD NUMBER</label>
-                        <input type="text" class="form-control" name="card_num" id="card_num" placeholder="Enter card number" autocomplete="off" required>
-                    </div>
-                    <div class="form-group">
-                        <label><span>EXPIRY DATE</span></label>
-                        <input type="number" class="form-control" name="exp_month" id="exp_month" placeholder="MM" required>
-                        <input type="number" class="form-control" name="exp_year" id="exp_year" placeholder="YY" required>
-                    </div>
-                    <div class="form-group">
-                        <label>CVV</label>
-                        <input type="number" class="form-control" name="cvv" id="cvv" autocomplete="off" required>
-                    </div>
-
-                    <!-- hidden token input -->
-                    <input id="token" name="token" type="hidden" value="">
-
-                    <!-- submit button -->
-                    <input type="submit" id="sub-button" class="btn btn-success" value="Submit Payment">
-                </form>
-            </div>
-        </div>
-
-
-    </div>
-
-
-    <script type="text/javascript" src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-
-    <script>
-        // Called when token created successfully.
-        var successCallback = function(data) {
-
-//        $('#sub-button').removeAttr('disabled');
-//        $('#sub-button').val('Submit');
-
-            var myForm = document.getElementById('paymentFrm');
-
-            // Set the token as the value for the token input
-            myForm.token.value = data.response.token.token;
-
-            // Submit the form
-            myForm.submit();
-        };
-
-        // Called when token creation fails.
-        var errorCallback = function(data) {
-
-            $('#sub-button').removeAttr('disabled');
-            $('#sub-button').val('Submit');
-
-            if (data.errorCode === 200) {
-                tokenRequest();
-            } else {
-                alert(data.errorMsg);
-            }
-        };
-
-        var tokenRequest = function() {
-
-//        alert(12);
-            // Setup token request arguments
-            var args = {
-                sellerId: "102588949",
-                publishableKey: "5368DC43-E691-4E20-BE49-EBEBFC816D79",
-                ccNo: $("#card_num").val(),
-                cvv: $("#cvv").val(),
-                expMonth: $("#exp_month").val(),
-                expYear: $("#exp_year").val()
-            };
-
-            // Make the token request
-            TCO.requestToken(successCallback, errorCallback, args);
-        };
-
-        $(function() {
-            // Pull in the public encryption key for our environment
-            TCO.loadPubKey('production');
-
-            $("#paymentFrm").submit(function(e) {
-                e.preventDefault();
-
-                $('#sub-button').attr('disabled',true);
-                $('#sub-button').val('Please wait...');
-//            alert(12);
-                // Call our token request function
-                tokenRequest();
-
-                // Prevent form from submitting
-                return false;
-            });
-        });
-    </script>
-    </body>
-    </html>
-
-    <?php
-    exit;
-}else{
-    echo "Parameters Required";
-}
+            $sql = "INSERT INTO services SET name_lang=:multiName, service_secret=:secret, service_api=:api, service_dripfeed=:dripfeed, instagram_second=:instagram_second, start_count=:start_count, instagram_private=:instagram_private, api_service=:api_service, api_detail=:detail, category_id=:category, service_line=:line, service_type=:type, service_package=:package, service_name=:name, service_price=:price, service_description=:description, description_lang=:multi, service_min=:min, service_max=:max, want_username=:want_username, service_speed=:speed ";
+            $insert = $conn->prepare($sql);
+            $args = array("secret"=>$secret,"multiName"=>$multiName,"instagram_second"=>$instagram_second,"dripfeed"=>$dripfeed,"start_count"=>$start_count,"instagram_private"=>$instagram_private,"api"=>$provider,"api_service"=>$service,"detail"=>$detail,"category"=>$cat,"line"=>$row["service_line"]+1,"type"=>2,"package"=>$package,"name"=>$name,"price"=>$price,"description"=>$description, "multi" => $multiDesc, "min"=>$min,"max"=>$max,"want_username"=>$want_username,"speed"=>$speed );
+            $insert = $insert->execute($args);
+            if (defined("MC_DEBUG")) mc_log("1.admin/controller/services.php action = $action insert = $insert\n".$sql."\n".print_r($args,true));
+            if( $insert ):
+                $conn->commit();
+                $referrer = site_url("admin/services");
+                $error    = 1;
+                $errorText= "Success";
+                $icon     = "success";
+            else:
+                $conn->rollBack();
+                $error    = 1;
+                $errorText= "Failed";
+                $icon     = "error";
+            endif;
+        endif;
+        echo json_encode(["t"=>"error","m"=>$errorText,"s"=>$icon,"r"=>$referrer]);
+    endif;
+elseif( $action == "edit-service" ):
+    $service_id  = route(3);
+    if( !countRow(["table"=>"services","where"=>["service_id"=>$service_id]]) ): header("Location:".site_url("admin/services")); exit(); endif;
+    if( $_POST ):
+        $language   = $conn->prepare("SELECT * FROM languages WHERE default_language=:default");
+        $language->execute(array("default"=>1));
+        $language   = $language->fetch(PDO::FETCH_ASSOC);
+        foreach ($_POST as $key => $value) {
+            $$key = $value;
+        }
+        $cat = intval(@$_POST["category"]);
+        //$name      = mb_convert_encoding($_POST["name"][$language["language_code"]], 'UTF-8', 'UTF-8');
+        $name = $_POST["name"];
+        $multiName = json_encode($_POST["name"]);
 
 
 
+        if( $package == 2 ): $max = $min; endif;
+        $serviceInfo  = $conn->prepare("SELECT * FROM services INNER JOIN service_api ON service_api.id = services.service_api WHERE service_id=:id ");
+        $serviceInfo -> execute(array("id"=>route(3) ));
+        $serviceInfo  = $serviceInfo->fetch(PDO::FETCH_ASSOC);
+        if( empty($name) ):
+            $error    = 1;
+            $errorText= "Ürün adı boş olamaz";
+            $icon     = "error";
+        elseif( empty($package) ):
+            $error    = 1;
+            $errorText= "Ürün paketi boş olamaz";
+            $icon     = "error";
+        elseif( empty($category) ):
+            $error    = 1;
+            $errorText= "Ürün kategori boş olamaz";
+            $icon     = "error";
+        elseif( !is_numeric($min) ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( $package != 2 && !is_numeric($max) ):
+            $error    = 1;
+            $errorText= "Maksimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( $min > $max ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı maksimum sipariş miktarından fazla olamaz";
+            $icon     = "error";
+        elseif( $mode != 1 && empty($provider) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı boş olamaz";
+            $icon     = "error";
+        elseif( $mode != 1 && empty($service) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı servis bilgisi boş olamaz";
+            $icon     = "error";
+        elseif( empty($secret) ):
+            $error    = 1;
+            $errorText= "Servis gizliliği boş olamaz";
+            $icon     = "error";
+        elseif( empty($want_username) ):
+            $error    = 1;
+            $errorText= "Sipariş bağlantısı boş olamaz";
+            $icon     = "error";
+        elseif( !is_numeric($price) ):
+            $error    = 1;
+            $errorText= "Ürün fiyatı rakamlardan oluşmalı";
+            $icon     = "error";
+        else:
+            $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
+            if( $mode == 1 ): $provider = 0; $service = 0; endif;
+            if( $mode == 2 && $api["api_type"] == 1 ):
+                $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
+                foreach ($services as $apiService):
+                    if( $service == $apiService->service ):
+                        $detail["description"]=$apiService->description;
+                        $detail["min"]=$apiService->min;
+                        $detail["max"]=$apiService->max;
+                        $detail["rate"]=$apiService->rate;
+                        $detail["currency"]=$balance->currency;
+                        $detail=json_encode($detail);
+                    endif;
+                endforeach;
+            else:
+                $detail="";
+            endif;
+            if( $serviceInfo["category_id"] != $category ): $row = $conn->query("SELECT * FROM services WHERE category_id='$category' ORDER BY service_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC); $last_category=$serviceInfo["category_id"]; $last_line=$serviceInfo["service_line"]; $line= $row["service_line"] + 1; else: $line= $serviceInfo["service_line"]; endif;
+            $conn->beginTransaction();
+
+            $description  = $_POST["description"];
+            $multiDesc    = json_encode(array($language["language_code"] => $description));
+
+            $sql = "UPDATE services SET api_detail=:detail, name_lang=:multiName, service_dripfeed=:dripfeed, api_servicetype=:type, instagram_second=:instagram_second, start_count=:start_count, instagram_private=:instagram_private, service_api=:api, api_service=:api_service, category_id=:category, service_package=:package, service_name=:name,service_price=:price, service_description=:description, service_min=:min, service_secret=:secret, service_max=:max, want_username=:want_username, service_speed=:speed , description_lang=:multi WHERE service_id=:id ";
+            $update = $conn->prepare($sql);
+            $args = array("id"=>route(3),"multiName"=>$multiName,"secret"=>$secret,"type"=>2,"detail"=>$detail,"dripfeed"=>$dripfeed,"instagram_second"=>$instagram_second,"start_count"=>$start_count,"instagram_private"=>$instagram_private,"api"=>$provider,"api_service"=>$service,"category"=>$category,"package"=>$package,"name"=>$name,"price"=>$price,"description"=>$description,"min"=>$min,"max"=>$max,"want_username"=>$want_username,"speed"=>$speed, "multi" => $multiDesc );
+            $update = $update-> execute($args);
+            if (defined("MC_DEBUG")) mc_log("2.admin/controller/services.php action = $action page = $page update = ".(int)$update."\n".$sql."\n".print_r($args,true));
+
+            if( $update ):
+                $conn->commit();
+                $rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id && service_line>=:line ");
+                $rows->execute(array("c_id"=>$last_category,"line"=>$last_line ));
+                $rows = $rows->fetchAll(PDO::FETCH_ASSOC);
+                foreach( $rows as $row ):
+                    $update = $conn->prepare("UPDATE services SET service_line=:line WHERE service_id=:id ");
+                    $update->execute(array("line"=>$row["service_line"]-1,"id"=>$row["service_id"] ));
+                endforeach;
+                $error    = 1;
+                $errorText= "Success";
+                $icon     = "success";
+                $referrer = site_url("admin/services");
+            else:
+                $conn->rollBack();
+                $error    = 1;
+                $errorText= "Failed";
+                $icon     = "error";
+            endif;
+        endif;
+        echo json_encode(["t"=>"error","m"=>$errorText,"s"=>$icon,"r"=>$referrer]);
+    endif;
+elseif( $action == "edit-description" ):
+    $service_id  = route(3);
+    if( !countRow(["table"=>"services","where"=>["service_id"=>$service_id]]) ): header("Location:".site_url("admin/services")); exit(); endif;
+    if( $_POST ):
+        $language   = $conn->prepare("SELECT * FROM languages WHERE default_language=:default");
+        $language->execute(array("default"=>1));
+        $language   = $language->fetch(PDO::FETCH_ASSOC);
+        foreach ($_POST as $key => $value) {
+            $$key = $value;
+        }
+        $description  = $_POST["description"][$language["language_code"]];
+        $multiDesc    = json_encode($_POST["description"]);
+
+        $conn->beginTransaction();
+        $sql = "UPDATE services SET service_description=:description, description_lang=:multi WHERE service_id=:id ";
+        $update = $conn->prepare($sql);
+        $args = array("id"=>route(3),"multi"=>$multiDesc,"description"=>$description );
+        $update = $update-> execute($args);
+        if (defined("MC_DEBUG")) mc_log("admin/controller/services.pohp edit-description update = ".(int)$update."\n$sql\n".print_r($args, true));
+        if( $update ):
+            $conn->commit();
+            $error    = 1;
+            $errorText= "Success";
+            $icon     = "success";
+        else:
+            $conn->rollBack();
+            $error    = 1;
+            $errorText= "Failed";
+            $icon     = "error";
+        endif;
+        echo json_encode(["t"=>"error","m"=>$errorText,"s"=>$icon]);
+    endif;
+elseif( $action == "new-category" ):
+    if( $_POST ):
+        $name   = $_POST["name"];
+        $secret = $_POST["secret"];
+        $icon   = $_POST["icon"];
+
+        if( empty($name) ):
+            $error    = 1;
+            $errorText= "Kategori adı boş olamaz";
+            $icon     = "error";
+        else:
+            $row = $conn->query("SELECT * FROM categories ORDER BY category_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC);
+            $conn->beginTransaction();
+
+            $nweIcon = $icon!=""?$icon:" ";
+            $insert = $conn->prepare("INSERT INTO categories SET category_name=:name, category_line=:line, category_icon=:icon, category_secret=:secret ");
+            $insert = $insert-> execute(array("name"=>$name,"secret"=>$secret,"icon"=>$nweIcon,"line"=>($row["category_line"]+1) ));
+            if( $insert ):
+
+                $conn->commit();
+
+                unset($_SESSION["data"]);
+                $error    = 1;
+                $errorText= "Success";
+                $icon     = "success";
+                $referrer = site_url("admin/services");
+            else:
+                $conn->rollBack();
+
+                $error    = 1;
+                $errorText= "Failed";
+                $icon     = "error";
+            endif;
+        endif;
+        echo json_encode(["t"=>"error","m"=>$errorText,"s"=>$icon,"r"=>$referrer]);
+    endif;
+elseif( $action == "edit-category" ):
+    $category_id  = route(3);
+    if( !countRow(["table"=>"categories","where"=>["category_id"=>$category_id]]) ): header("Location:".site_url("admin/services")); exit(); endif;
+    $row  = getRow(["table"=>"categories","where"=>["category_id"=>$category_id]]);
+    if( $_POST ):
+        $name   = $_POST["name"];
+        $secret = $_POST["secret"];
+        $icon   = $_POST["icon"];
+
+        if( empty($name) ):
+            $error    = 1;
+            $errorText= "Kategori adı boş olamaz";
+            $icon     = "error";
+        else:
+            $conn->beginTransaction();
 
 
 
-//$str_address ="%7b%22addrLine1%22%3a%22Broadway%22%2c%22city%22%3a%22New+York%22%2c%22state%22%3a%22New+York%22%2c%22zipCode%22%3a%2210001%22%2c%22country%22%3a%22USA%22%7d";
+            $update = $conn->prepare("UPDATE categories SET category_name=:name, category_icon=:icon, category_secret=:secret WHERE category_id=:id  ");
+            $icon = $icon!=""?$icon:" ";
+            $update = $update->execute(array("name"=>$name,"secret"=>$secret,"icon"=>$icon,"id"=>$category_id ));
+            if( $update ):
 
-// $address_array= (array)json_decode(urldecode($str_address));
-// print_r($address_array);
-// print_r($address_array['addrLine1']);
+                $conn->commit();
+                $referrer = site_url("admin/services");
+                $error    = 1;
+                $errorText= "Success";
+                $icon     = "success";
+            else:
 
-?>
+                $conn->rollBack();
+                $error    = 1;
+                $errorText= "Failed";
+                $icon     = "error";
+            endif;
+        endif;
+        echo json_encode(["t"=>"error","m"=>$errorText,"s"=>$icon,"r"=>$referrer]);
+    endif;
+elseif( $action == "new-subscription" ):
+    if( $_POST ):
+        $language   = $conn->prepare("SELECT * FROM languages WHERE default_language=:default");
+        $language->execute(array("default"=>1));
+        $language   = $language->fetch(PDO::FETCH_ASSOC);
+        foreach ($_POST as $key => $value) {
+            $$key = $value;
+        }
+        $cat = intval(@$_POST["category"]);
+        if (!$cat) $cat = $category;
+        //$name      = mb_convert_encoding($_POST["name"][$language["language_code"]],"UTF-8","UTF-8");
+        //   $multiName = json_encode(array($_POST["name"]);
+        $multiName = $name      = $_POST["name"];
+        if( empty($name) ):
+            $error    = 1;
+            $errorText= "Ürün adı boş olamaz";
+            $icon     = "error";
+        elseif( empty($package) ):
+            $error    = 1;
+            $errorText= "Ürün paketi boş olamaz";
+            $icon     = "error";
+        elseif( empty($category) ):
+            $error    = 1;
+            $errorText= "Ürün kategori boş olamaz";
+            $icon     = "error";
+        elseif( empty($provider) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı boş olamaz";
+            $icon     = "error";
+        elseif( empty($service) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı servis bilgisi boş olamaz";
+            $icon     = "error";
+        elseif( empty($secret) ):
+            $error    = 1;
+            $errorText= "Servis gizliliği boş olamaz";
+            $icon     = "error";
+        elseif(  ( $package == 11 || $package == 12 ) && !is_numeric($price) ):
+            $error    = 1;
+            $errorText= "Ürün fiyatı rakamlardan oluşmalı";
+            $icon     = "error";
+        elseif( ( $package == 11 || $package == 12 ) && !is_numeric($min) ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( ( $package == 11 || $package == 12 ) && !is_numeric($max) ):
+            $error    = 1;
+            $errorText= "Maksimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( ( $package == 11 || $package == 12 ) && $min > $max ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı maksimum sipariş miktarından fazla olamaz";
+            $icon     = "error";
+        elseif(  ( $package == 14 || $package == 15 ) && !is_numeric($autopost) ):
+            $error    = 1;
+            $errorText= "Gönderi miktarı boş olamaz";
+            $icon     = "error";
+        elseif(  ( $package == 14 || $package == 15 ) && !is_numeric($limited_min) ):
+            $error    = 1;
+            $errorText= "Sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif(  ( $package == 14 || $package == 15 ) && !is_numeric($autotime) ):
+            $error    = 1;
+            $errorText= "Paket Süresi boş olamaz";
+            $icon     = "error";
+        else:
+            $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
+            if( $mode == 1 ): $provider = 0; $service = 0; endif;
+            if( $mode == 2 && $api["api_type"] == 1 ):
+                $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
+                foreach ($services as $apiService):
+                    if( $service == $apiService->service ):
+                        $detail["min"]=$apiService->min;
+                        $detail["max"]=$apiService->max;
+                        $detail["rate"]=$apiService->rate;
+                        $detail["currency"]=$balance->currency;
+                        $detail=json_encode($detail);
+                    endif;
+                endforeach;
+            else:
+                $detail="";
+            endif;
+            if( $package == 14 || $package == 15 ): $min = $limited_min; $max = $min; $price = $limited_price; endif;
+            $row = $conn->query("SELECT * FROM services WHERE category_id='$category' ORDER BY service_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC);
+            $conn->beginTransaction();
 
+            $description  = $_POST["description"];
+            $multiDesc    = json_encode(array($language["language_code"] => $description));
+
+            $sql = "INSERT INTO services SET name_lang=:multiName, service_speed=:speed, service_api=:api, api_service=:api_service, api_detail=:detail, category_id=:category, service_line=:line, service_type=:type, service_package=:package, service_name=:name, service_price=:price, service_description=:description, description_lang=:multi, service_min=:min, service_max=:max, service_autotime=:autotime, service_autopost=:autopost, service_secret=:secret ";
+            $insert = $conn->prepare($sql);
+            $args = array("api"=>$provider,"multiName"=>$multiName,"speed"=>$speed,"detail"=>$detail,"api_service"=>$service,"category"=>$cat,"line"=>$row["service_line"]+1,"type"=>2,"package"=>$package,"name"=>$name,"price"=>$price, "description"=>$description, "multi" => $multiDesc, "min"=>$min,"max"=>$max,"autotime"=>$autotime,"autopost"=>$autopost,"secret"=>$secret );
+            $insert = $insert-> execute($args);
+            if (defined("MC_DEBUG")) mc_log("3.admin/controller/services.php action = $action insert = $insert\n".$sql."\n".print_r($args,true));
+
+            if( $insert ):
+                $conn->commit();
+                $error    = 1;
+                $errorText= "Success";
+                $referrer = site_url("admin/services");
+                $icon     = "success";
+            else:
+                $conn->rollBack();
+                $error    = 1;
+                $errorText= "Failed";
+                $icon     = "error";
+            endif;
+        endif;
+        echo json_encode(["t"=>"error","m"=>$errorText,"s"=>$icon,"r"=>$referrer]);
+    endif;
+elseif( $action == "edit-subscription" ):
+    if( $_POST ):
+        $language   = $conn->prepare("SELECT * FROM languages WHERE default_language=:default");
+        $language->execute(array("default"=>1));
+        $language   = $language->fetch(PDO::FETCH_ASSOC);
+        foreach ($_POST as $key => $value) {
+            $$key = $value;
+        }
+        // ismi değiştirdiği alan servicslerden
+        $cat = intval(@$_POST["category"]);
+        $name      = $_POST["name"];
+        $serviceInfo  = $conn->prepare("SELECT * FROM services INNER JOIN service_api ON service_api.id = services.service_api WHERE service_id=:id ");
+        $serviceInfo -> execute(array("id"=>route(3) ));
+        $serviceInfo  = $serviceInfo->fetch(PDO::FETCH_ASSOC);
+        if( empty($name) ):
+            $error    = 1;
+            $errorText= "Ürün adı boş olamaz";
+            $icon     = "error";
+        elseif( empty($category) ):
+            $error    = 1;
+            $errorText= "Ürün kategori boş olamaz";
+            $icon     = "error";
+        elseif( empty($provider) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı boş olamaz";
+            $icon     = "error";
+        elseif( empty($service) ):
+            $error    = 1;
+            $errorText= "Servis sağlayıcı servis bilgisi boş olamaz";
+            $icon     = "error";
+        elseif( empty($secret) ):
+            $error    = 1;
+            $errorText= "Servis gizliliği boş olamaz";
+        elseif(  ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && !is_numeric($price) ):
+            $error    = 1;
+            $errorText= "Ürün fiyatı rakamlardan oluşmalı";
+            $icon     = "error";
+        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && !is_numeric($min) ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && !is_numeric($max) ):
+            $error    = 1;
+            $errorText= "Maksimum sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif( ( $serviceInfo["service_package"] == 11 || $serviceInfo["service_package"] == 12 ) && $min > $max ):
+            $error    = 1;
+            $errorText= "Minimum sipariş miktarı maksimum sipariş miktarından fazla olamaz";
+            $icon     = "error";
+        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) && !is_numeric($autopost) ):
+            $error    = 1;
+            $errorText= "Gönderi miktarı boş olamaz";
+            $icon     = "error";
+        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) && !is_numeric($limited_min) ):
+            $error    = 1;
+            $errorText= "Sipariş miktarı boş olamaz";
+            $icon     = "error";
+        elseif(  ( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ) && !is_numeric($autotime) ):
+            $error    = 1;
+            $errorText= "Paket Süresi boş olamaz";
+            $icon     = "error";
+        else:
+            $api=$conn->prepare("SELECT * FROM service_api WHERE id=:id "); $api->execute(array("id"=>$provider)); $api=$api->fetch(PDO::FETCH_ASSOC);
+            if( $mode == 1 ): $provider = 0; $service = 0; endif;
+            if( $mode == 2 && $api["api_type"] == 1 ):
+                $smmapi   = new SMMApi(); $services = $smmapi->action(array('key' =>$api["api_key"],'action' =>'services'),$api["api_url"]); $balance = $smmapi->action(array('key' =>$api["api_key"],'action' =>'balance'),$api["api_url"]);
+                foreach ($services as $apiService):
+                    if( $service == $apiService->service ):
+                        $detail["min"]=$apiService->min;
+                        $detail["max"]=$apiService->max;
+                        $detail["rate"]=$apiService->rate;
+                        $detail["currency"]=$balance->currency;
+                        $detail=json_encode($detail);
+                    endif;
+                endforeach;
+            else:
+                $detail="";
+            endif;
+            if( $serviceInfo["service_package"] == 14 || $serviceInfo["service_package"] == 15 ): $min = $limited_min; $max = $min; $price = $limited_price; endif;
+            if( $serviceInfo["category_id"] != $category ): $row = $conn->query("SELECT * FROM services WHERE category_id='$category' ORDER BY service_line DESC LIMIT 1 ")->fetch(PDO::FETCH_ASSOC); $last_category=$serviceInfo["category_id"]; $last_line=$serviceInfo["service_line"]; $line= $row["service_line"] + 1; else: $line= $serviceInfo["service_line"]; endif;
+            $conn->beginTransaction();
+            // abone update işlem yeri
+            $sql = "UPDATE services SET 
+			service_speed=:speed, 
+			service_api=:api,
+			api_servicetype=:type, 
+			api_service=:api_service, 
+			api_detail=:detail,
+			category_id=:category, 
+			service_name=:name, 
+			service_price=:price, 
+			service_min=:min, 
+			service_max=:max, 
+			service_autotime=:autotime, 
+			service_autopost=:autopost,
+      name_lang=:name_lang,
+			service_secret=:secret 
+			WHERE service_id=:id ";
+            $update = $conn->prepare($sql);
+            $args = array("id"=>route(3),"type"=>2,"speed"=>$speed,"detail"=>$detail,"api"=>$provider,"api_service"=>$service,"category"=>$category,"name"=>$name,"price"=>$price,"min"=>$min,"max"=>$max,"autotime"=>$autotime,"autopost"=>$autopost,"name_lang"=>$multiName,"secret"=>$secret );
+            $update = $update-> execute($args);
+            if (defined("MC_DEBUG")) mc_log("22.admin/controller/services.php action = $action page = $page update = ".(int)$update."\n".$sql."\n".print_r($args,true));
+
+            if( $update ):
+                $conn->commit();
+                $rows = $conn->prepare("SELECT * FROM services WHERE category_id=:c_id && service_line>=:line ");
+                $rows->execute(array("c_id"=>$last_category,"line"=>$last_line ));
+                $rows = $rows->fetchAll(PDO::FETCH_ASSOC);
+                foreach( $rows as $row ):
+                    $update = $conn->prepare("UPDATE services SET service_line=:line WHERE service_id=:id ");
+                    $update->execute(array("line"=>$row["service_line"]-1,"id"=>$row["service_id"] ));
+                endforeach;
+                $error    = 1;
+                $errorText= "Success";
+                $referrer = site_url("admin/services");
+                $icon     = "success";
+            else:
+                $conn->rollBack();
+                $error    = 1;
+                $errorText= "Failed";
+                $icon     = "error";
+            endif;
+        endif;
+        echo json_encode(["t"=>"error","m"=>$errorText,"s"=>$icon,"r"=>$referrer]);
+    endif;
+elseif( $action == "service-active" ):
+    $service_id  = route(3);
+    if( countRow(["table"=>"services","where"=>["client_id"=>$service_id,"service_type"=>2]]) ): header("Location:".site_url("admin/services")); exit(); endif;
+    $update = $conn->prepare("UPDATE services SET service_type=:type WHERE service_id=:id ");
+    $update->execute(array("type"=>2,"id"=>$service_id));
+    if( $update ):
+        $_SESSION["client"]["data"]["success"]    = 1;
+        $_SESSION["client"]["data"]["successText"]= "Success";
+    else:
+        $_SESSION["client"]["data"]["error"]    = 1;
+        $_SESSION["client"]["data"]["errorText"]= "Failed";
+    endif;
+    header("Location:".site_url("admin/services"));
+elseif( $action == "service-deactive" ):
+    $service_id  = route(3);
+    if( countRow(["table"=>"services","where"=>["service_id"=>$service_id,"service_type"=>1]]) ): header("Location:".site_url("admin/services")); exit(); endif;
+    $update = $conn->prepare("UPDATE services SET service_type=:type WHERE service_id=:id ");
+    $update->execute(array("type"=>1,"id"=>$service_id));
+    if( $update ):
+        $_SESSION["client"]["data"]["success"]    = 1;
+        $_SESSION["client"]["data"]["successText"]= "Success";
+    else:
+        $_SESSION["client"]["data"]["error"]    = 1;
+        $_SESSION["client"]["data"]["errorText"]= "Failed";
+    endif;
+    header("Location:".site_url("admin/services"));
+elseif( $action == "del_price" ):
+    $service_id  = route(3);
+    if( !countRow(["table"=>"clients_price","where"=>["service_id"=>$service_id]]) ): $_SESSION["client"]["data"]["error"]    = 1; $_SESSION["client"]["data"]["errorText"]= "Servise ait fiyatlandırma bulunamadı."; header("Location:".site_url("admin/services")); exit(); endif;
+    $delete = $conn->prepare("DELETE FROM clients_price  WHERE service_id=:id ");
+    $delete->execute(array("id"=>$service_id));
+    if( $delete ):
+        $_SESSION["client"]["data"]["success"]    = 1;
+        $_SESSION["client"]["data"]["successText"]= "Success";
+    else:
+        $_SESSION["client"]["data"]["error"]    = 1;
+        $_SESSION["client"]["data"]["errorText"]= "Failed";
+    endif;
+    header("Location:".site_url("admin/services"));
+elseif( $action == "category-active" ):
+    $category_id  = route(3);
+    $update = $conn->prepare("UPDATE categories SET category_type=:type WHERE category_id=:id ");
+    $update->execute(array("type"=>2,"id"=>$category_id));
+    if( $update ):
+        $_SESSION["client"]["data"]["success"]    = 1;
+        $_SESSION["client"]["data"]["successText"]= "Success";
+    else:
+        $_SESSION["client"]["data"]["error"]    = 1;
+        $_SESSION["client"]["data"]["errorText"]= "Failed";
+    endif;
+    header("Location:".site_url("admin/services"));
+elseif( $action == "category-deactive" ):
+    $category_id  = route(3);
+    $update = $conn->prepare("UPDATE categories SET category_type=:type WHERE category_id=:id ");
+    $update->execute(array("type"=>1,"id"=>$category_id));
+    if( $update ):
+        $_SESSION["client"]["data"]["success"]    = 1;
+        $_SESSION["client"]["data"]["successText"]= "Success";
+    else:
+        $_SESSION["client"]["data"]["error"]    = 1;
+        $_SESSION["client"]["data"]["errorText"]= "Failed";
+    endif;
+    header("Location:".site_url("admin/services"));
+elseif( $action == "multi-action" ):
+    $services = $_POST["service"];
+    $action   = $_POST["bulkStatus"];
+    if( $action ==  "active" ):
+        foreach ($services as $id => $value):
+            $update = $conn->prepare("UPDATE services SET service_type=:type WHERE service_id=:id ");
+            $update->execute(array("type"=>2,"id"=>$id));
+        endforeach;
+    elseif( $action ==  "deactive" ):
+        foreach ($services as $id => $value):
+            $update = $conn->prepare("UPDATE services SET service_type=:type WHERE service_id=:id ");
+            $update->execute(array("type"=>1,"id"=>$id));
+        endforeach;
+    elseif( $action ==  "secret" ):
+        foreach ($services as $id => $value):
+            $update = $conn->prepare("UPDATE services SET service_secret=:secret WHERE service_id=:id ");
+            $update->execute(array("secret"=>1,"id"=>$id));
+        endforeach;
+    elseif( $action ==  "desecret" ):
+        foreach ($services as $id => $value):
+            $update = $conn->prepare("UPDATE services SET service_secret=:secret WHERE service_id=:id ");
+            $update->execute(array("secret"=>2,"id"=>$id));
+        endforeach;
+    elseif( $action ==  "del_price" ):
+        foreach ($services as $id => $value):
+            $delete = $conn->prepare("DELETE FROM clients_price  WHERE service_id=:id ");
+            $delete->execute(array("id"=>$id));
+        endforeach;
+    elseif( $action == "del_service" ):
+        foreach ($services as $id => $value):
+            $delete = $conn->prepare("DELETE FROM services WHERE service_id=:id ");
+            $delete->execute(array("id"=>$id));
+        endforeach;
+    endif;
+    header("Location:".site_url("admin/services"));
+elseif( $action == "get_services_add" ):
+    //print_r($_POST); die;
+    $services     = $_POST["servicesList"];
+    $provider_id  = $_POST["provider"];
+    $percentage_increase = $_POST["percentage_increase"];
+    $currency     = $conn->prepare("SELECT * FROM settings WHERE id=:id");
+    $currency     ->execute(array("id"=>"1"));
+    $currency     = $currency->fetch(PDO::FETCH_ASSOC);
+    $conv_rate = $currency["dolar_charge"];
+    $smmapi       = new SMMApi();
+    $provider     = $conn->prepare("SELECT * FROM service_api WHERE id=:id");
+    $provider     ->execute(array("id"=>$provider_id));
+    $cat = intval(@$_POST["category"]);
+    $provider     = $provider->fetch(PDO::FETCH_ASSOC);
+    $apiServices  = $smmapi->action(array('key'=>$provider["api_key"],'action'=>'services'),$provider["api_url"]);
+    $balance      = $smmapi->action(array('key'=>$provider["api_key"],'action'=>'balance'),$provider["api_url"]);
+    if( count($services) ):
+        foreach ($services as $service => $price):
+            foreach ($apiServices as $apiService):
+                if( $service == $apiService->service && $service != 0 ):
+                    $detail["min"]=$apiService->min;
+                    $detail["max"]=$apiService->max;
+                    $detail["rate"]=$apiService->rate;
+                    $detail["currency"]=$balance->currency;
+                    $package= serviceTypeGetList($apiService->type);
+                    $name2 = mb_convert_encoding($apiService->name, 'UTF-8', 'UTF-8');
+
+                    $numberToAdd = ($price / 100) * $percentage_increase;
+                    $price = $price+$numberToAdd;
+
+                    if( $currency["site_currency"] == "INR" ):
+
+
+                        if($provider["currency"] == "INR"){
+                            $price = $price;
+                        }else{
+                            $price = $price*$conv_rate;
+                        }
+
+                        if( $package == 11 ):
+
+                            $insert = $conn->prepare("INSERT INTO services SET service_api=:api, api_service=:api_service, category_id=:category, service_line=:line, service_type=:type, service_package=:package, service_name=:name, service_price=:price, service_min=:min, service_max=:max ");
+                            $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$name2,"price"=>$price,"min"=>$apiService->min,"max"=>$apiService->max ));
+                        else:
+                            $package = $package==""?1:$package;
+
+                            $insert = $conn->prepare("INSERT INTO services SET service_api=:api, api_service=:api_service, api_detail=:detail, category_id=:category, service_line=:line, service_type=:type, service_package=:package, service_name=:name, service_price=:price, service_min=:min, service_max=:max ");
+                            $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$apiService->name,"price"=>$price,"min"=>$apiService->min,"max"=>$apiService->max ));
+                        endif;
+
+                    else:
+
+                        if($provider["currency"] == "INR"){
+                            $foo = $price/$conv_rate;
+                            $formatted_price = number_format((float)$foo, 2, '.', '');
+                        }else{
+                            $formatted_price = $price;
+                        }
+
+
+                        if( $package == 11 ):
+
+                            $insert = $conn->prepare("INSERT INTO services SET service_api=:api, api_service=:api_service, category_id=:category, service_line=:line, service_type=:type, service_package=:package, service_name=:name, service_price=:price, service_min=:min, service_max=:max ");
+                            $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$name2,"price"=>$formatted_price,"min"=>$apiService->min,"max"=>$apiService->max ));
+                        else:
+                            $package = $package==""?1:$package;
+
+                            $insert = $conn->prepare("INSERT INTO services SET service_api=:api, api_service=:api_service, api_detail=:detail, category_id=:category, service_line=:line, service_type=:type, service_package=:package, service_name=:name, service_price=:price, service_min=:min, service_max=:max ");
+                            $insert = $insert-> execute(array("api"=>$provider_id,"api_service"=>$service,"detail"=>json_encode($detail),"category"=>$cat,"line"=>1,"type"=>2,"package"=>$package,"name"=>$apiService->name,"price"=>$formatted_price,"min"=>$apiService->min,"max"=>$apiService->max ));
+                        endif;
+                    endif;
+                endif;
+            endforeach;
+        endforeach;
+        echo json_encode(["t"=>"error","m"=>"Success","s"=>"success","r"=>site_url("admin/services"),"time"=>0]);
+    else:
+        echo json_encode(["t"=>"error","m"=>"Lütfen eklemek istediğiniz en az 1 servisi seçin","s"=>"error"]);
+    endif;
+endif;
+
+if( route(2) == "delete" ):
+    $id     = route(3);
+    $delete = $conn->prepare("DELETE FROM services WHERE service_id=:id ");
+    $delete->execute(array("id"=>$id));
+    header("Location:".site_url("admin/services"));
+endif;
+
+if( route(2) == "category-delete"):
+    $id     = route(3);
+    $delete = $conn->prepare("DELETE FROM categories WHERE category_id=:id ");
+    $delete->execute(array("id"=>$id));
+    header("Location:".site_url("admin/services"));
+endif;
+  
