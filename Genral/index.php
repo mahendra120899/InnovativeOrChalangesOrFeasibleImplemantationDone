@@ -1,4 +1,25 @@
 <?php
+
+$IsUrl = true;
+if(!$IsUrl){
+
+    echo 'Hello World!';
+
+
+}
+
+$OrderLink = $_GET["url"];
+if(!filter_var($OrderLink, FILTER_VALIDATE_URL)){
+
+    $OrderLink = 'https://www.instagram.com/'.$OrderLink;
+    $IsUrl = false;
+
+    echo 'Hello World!dasdasd';
+}
+
+die;
+
+
 $a = json_decode('{"status":"Completed","expiry":null,"posts":"10","orders":["147986285","148137524","148271437","148282367","148859119","148939346","148946909","148999469","149516088","148279667"]}');
 print_r(count($a->orders));
 die;

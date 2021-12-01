@@ -79,9 +79,7 @@ $res = curl_exec($ch);
 if(curl_exec($ch) === false)
 {
     echo 'Curl error: ' . curl_error($ch);
-}
-else
-{
+}else{
     echo 'Operation completed without any errors';
 }
 
